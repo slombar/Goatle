@@ -1,5 +1,7 @@
 package com.example.goatle
 
-class HomeFragment {
+import androidx.fragment.app.Fragment
+
+class HomeFragment : Fragment() {
 
 }
