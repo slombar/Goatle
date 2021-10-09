@@ -3,26 +3,44 @@ package com.example.goatle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import java.util.*
 
 private const val TAG = "MainActivityTag"
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-        //TODO CHANGE TO HOMEFRAGMENT()
         if (currentFragment == null) {
             Log.d(TAG, "The current fragment is null idiot moron")
             val fragment = HomeFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit()
-        }
 
+        }
+    }
+
+    override fun onCreatePostSelected() {
+        val fragment = PostFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+    fun onExitSelected() {
+        val fragment = HomeFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     fun onHomeButtonClicked(){
@@ -41,11 +59,8 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun onNewPostButtonClicked(){
-        val fragment = PostFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_container, fragment)
-            .commit()
+    override fun onPostSelected(postId: UUID) {
+        TODO("Not yet implemented")
     }
+
 }
