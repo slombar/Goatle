@@ -18,7 +18,8 @@ class PostFragment : Fragment() {
 
 
     interface Callbacks {
-        fun onPostSelected(postId: UUID)
+        //fun onReplySelected(postId: UUID)
+        fun onExitSelected()
     }
     private var callbacks: Callbacks? = null
 
@@ -26,6 +27,7 @@ class PostFragment : Fragment() {
     private lateinit var contentField: EditText
     private lateinit var date: TextView
     private lateinit var postButton: Button
+    private lateinit var exitButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +36,13 @@ class PostFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callbacks = context as Callbacks?
+        //callbacks = context as Callbacks?
     }
 
     private inner class PostHolder(view: View)
         :  View.OnClickListener {
         override fun onClick(v: View?) {
-            callbacks?.onPostSelected(post.id)
+           // callbacks?.onReplySelected(post.id)
         }}
 
     override fun onCreateView(
@@ -52,6 +54,12 @@ class PostFragment : Fragment() {
         contentField = view.findViewById(R.id.contentText) as EditText
         date = view.findViewById(R.id.dateView) as TextView
         postButton = view.findViewById(R.id.postButton) as Button
+        exitButton = view.findViewById(R.id.exitButton) as Button
+
+        exitButton.setOnClickListener {
+            (activity as MainActivity).onExitSelected()
+
+        }
 
         date.apply {
             text = post.date.toString()

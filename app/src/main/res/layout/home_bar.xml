@@ -37,13 +37,13 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="#FFFFFF"
             android:contentDescription="Chat Button"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+            app:layout_constraintBottom_toBottomOf="@+id/addPostButton"
             app:srcCompat="@drawable/chat_icon"
             tools:ignore="SpeakableTextPresentCheck"
             app:tint="#000000" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/addPostButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
