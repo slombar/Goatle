@@ -29,7 +29,7 @@
             android:typeface="sans" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/newPostButtonHomePage"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -37,20 +37,20 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="#FFFFFF"
             android:contentDescription="Chat Button"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-            app:srcCompat="@drawable/chat_icon"
-            tools:ignore="SpeakableTextPresentCheck"
-            app:tint="#000000" />
+            app:layout_constraintBottom_toBottomOf="@+id/chatButtonHomePage"
+            app:srcCompat="@drawable/plus_icon"
+            app:tint="#000000"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/chatButtonHomePage"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="#FFFFFF"
-            app:srcCompat="@drawable/plus_icon"
+            app:srcCompat="@drawable/chat_icon"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
