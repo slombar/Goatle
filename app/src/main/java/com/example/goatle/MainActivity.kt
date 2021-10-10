@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
             .commit()
     }
 
-    fun onExitSelected() {
+    override fun onExitSelected() {
         val fragment = HomeFragment()
         supportFragmentManager
             .beginTransaction()
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
             .commit()
     }
 
-    override fun onPostSelected(postId: UUID) {
+     fun onPostSelected(postId: UUID) {
         TODO("Not yet implemented")
     }
 

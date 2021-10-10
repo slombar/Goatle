@@ -7,14 +7,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageButton
+
 import androidx.fragment.app.Fragment
 import java.util.*
 
@@ -96,7 +91,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.home_bar, container, false)
         //TODO assign buttons
 
-        createPostButton = view.findViewById(R.id.addPostButton)
+        createPostButton = view.findViewById(R.id.newPostButtonHomePage)
 
         createPostButton.setOnClickListener {
             (activity as MainActivity).onCreatePostSelected()
