@@ -278,8 +278,8 @@ class HomeFragment : Fragment() {
 
         fun bind(post: Post) {
             this.post = post
-            usernameTextView.text = this.post.username
-            dateTextView.text = this.post.date
+            usernameTextView.text = this.post.postUsername
+            dateTextView.text = this.post.postDate
             contentTV.text = this.post.postContent
 
         }
