@@ -24,6 +24,7 @@ private const val TAG = "MainActivityTag"
 class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.Callbacks, ReplyFragment.Callbacks {
 
 
+
     var shook = false
     private  var ip : String = ""
     private var port : String = "1433"
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
     }
 
     override fun onCreatePostSelected() {
-        val fragment = PostFragment()
+        val fragment = PostFragment.newInstance(false,"none")
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -177,14 +178,29 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
             .commit()
     }
 
-    override fun onReplyPostSelected(){
-        val fragment = PostFragment()
+    override fun onReplyPostSelected(isReply : Boolean, postId: String){
+        val fragment = PostFragment.newInstance(isReply, postId)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
 
     }
+    override fun replyToHome() {
+        val fragment = HomeFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+    override fun replyCreated(id: String) {
+        val fragment = ReplyFragment.newInstance(id)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
 
 
 }

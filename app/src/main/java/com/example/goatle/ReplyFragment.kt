@@ -26,13 +26,16 @@ class ReplyFragment() : Fragment() {
 
 
     interface Callbacks {
-        fun onReplyPostSelected()
+        fun onReplyPostSelected(isReply : Boolean, postID : String)
+
+        fun replyToHome()
 
     }
 
     private var callbacks: ReplyFragment.Callbacks? = null
     private lateinit var reply: Reply
     private lateinit var replyButton: Button
+    private lateinit var exitButton: Button
     private lateinit var postUsername: TextView
     private lateinit var postDate: TextView
     private lateinit var postContent: TextView
@@ -70,7 +73,7 @@ class ReplyFragment() : Fragment() {
         container?.removeAllViews()
         val view = inflater.inflate(R.layout.reply_fragment2, container, false)
         replyList =
-            view.findViewById(R.id.replyList2) as RecyclerView
+            view.findViewById(R.id.postList) as RecyclerView
         //replyList.layoutManager = LinearLayoutManager(context)
 
         val postId: String = arguments?.getSerializable(ARG_Post_ID) as String
@@ -97,20 +100,29 @@ class ReplyFragment() : Fragment() {
         postDate = view.findViewById(R.id.selectedPostDate) as TextView
         postContent = view.findViewById(R.id.selectedPostContent) as TextView
 
-        dbd.collection("Posts").whereEqualTo("DocumentID", postId)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    postUsername.text = document.get("postUsername").toString()
-                }
+        val usersRef = dbd.collection("Posts")
+        val uidRef = usersRef.document(postId)
+        uidRef.get().addOnSuccessListener { document ->
+            if (document != null) {
+                postUsername.setText(document.getString("postUsername"))
+                postDate.setText(document.getString("postDate"))
+                postContent.setText(document.getString("postContent"))
+            } else {
+                Log.d(TAG, "No such document")
             }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "Error getting documents: ", exception)
-            }
-        replyButton = view.findViewById(R.id.makeReply)
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "get failed with ", exception)
+        }
+
+
+        replyButton = view.findViewById(R.id.makeReply2)
         replyButton.setOnClickListener {
-            (activity as MainActivity).onReplyPostSelected()
+            (activity as MainActivity).onReplyPostSelected(true, postId)
+        }
+
+        exitButton = view.findViewById(R.id.exit)
+        exitButton.setOnClickListener {
+            (activity as MainActivity).replyToHome()
         }
         replyList.adapter = adapter3
         replyList.layoutManager = LinearLayoutManager(context)
@@ -172,9 +184,9 @@ class ReplyFragment() : Fragment() {
 
         private lateinit var reply: Reply
 
-        val usernameTextView: TextView = itemView.findViewById(R.id.replyUsername)
-        val dateTextView: TextView = itemView.findViewById(R.id.replyDate)
-        val replyContentTV : TextView = itemView.findViewById(R.id.replyContent)
+        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
+        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
+        val replyContentTV : TextView = itemView.findViewById(R.id.postContent)
 
         fun bind(reply: Reply) {
             this.reply = reply

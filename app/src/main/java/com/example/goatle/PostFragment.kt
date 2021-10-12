@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,17 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.random.Random.Default.nextInt
 
+private const val ARG_IsReply = "True"
+private const val ARG_Post_ID = "DocumentID"
+
+private const val TAG = "PostFragment"
 class PostFragment : Fragment() {
 
 
     interface Callbacks {
         //fun onReplySelected(postId: UUID)
         fun onExitSelected()
+        fun replyCreated(id: String)
         fun onPostSelected()
     }
     private var callbacks: Callbacks? = null
@@ -40,6 +46,9 @@ class PostFragment : Fragment() {
     private  var KEY_Date : String = "postDate"
     private  var KEY_Content : String = "postContent"
 
+    private  var KEY_UsernameR : String = "replyUsername"
+    private  var KEY_DateR : String = "replyDate"
+    private  var KEY_ContentR : String = "replyContent"
 
     val names: List<String> = listOf("Happy_Hen", "Funny_Flamingo", "Tiny_Tiger")
 
@@ -54,6 +63,20 @@ class PostFragment : Fragment() {
         post = Post()
 
     }
+
+    companion object {
+        fun newInstance(isReply : Boolean, postId: String): PostFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_IsReply, isReply.toString())//true when comes from reply
+                putSerializable(ARG_Post_ID, postId)
+
+            }
+            return PostFragment().apply {
+                arguments = args
+            }
+        }
+    }
+
 
     //override fun onAttach(context: Context) {
     //    super.onAttach(context)
@@ -84,10 +107,20 @@ class PostFragment : Fragment() {
             (activity as MainActivity).onExitSelected()
 
         }
+        val postId2: String = arguments?.getSerializable(ARG_Post_ID) as String
+        val isReply: String = arguments?.getSerializable(ARG_Post_ID) as String
         postButton.setOnClickListener(){
-            savePost()
-            //contentField.text.clear()
-            (activity as MainActivity).onPostSelected()
+            if(postId2 != "none"){
+                savePostReply()
+
+                //contentField.text.clear()
+                (activity as MainActivity).replyCreated(postId2)
+            }else if(postId2 == "none"){
+                savePost()
+                (activity as MainActivity).onPostSelected()
+            }
+
+
 
         }
 
@@ -158,6 +191,30 @@ class PostFragment : Fragment() {
                // Toast.makeText(context," Data not added ",Toast.LENGTH_LONG).show()
             }
 
+
+
+    }
+    fun savePostReply() {
+        var username2: String = username.text.toString()
+        var date2: String = date.text.toString()
+        var postC: String = contentField.text.toString()
+
+
+        val reply = HashMap<String, Any>()
+        reply.put(KEY_UsernameR, username2)
+        reply.put(KEY_DateR, date2)
+        reply.put(KEY_ContentR, postC)
+
+        val postId: String = arguments?.getSerializable(ARG_Post_ID) as String
+        Log.d(TAG, "PostID2: ${postId}")
+        dbd.collection("Posts").document(postId).collection("Replys")
+            .add(reply)
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener {
+
+            }
     }
 
 
