@@ -3,8 +3,8 @@ authors: Sadie Lombardi <slombardi@wpi.edu> & Amy Orozco <aorozco@wpi.edu>
 
 ##a long-term persistence strategy, such as using local filesystems or relational databases
 
-##a mobile sensor such as accelerometer, camera, or GPS; 
-For our mobile sensor we used the accelerometer to change the color of the posts on the home page when the user shakes the device.
+##a mobile sensor such as accelerometer, camera, or GPS;
+For our mobile sensor we used the accelerometer to return the user to the home screen and change the color of the when the user shakes the device.
 This was done using the SensorManager, SensorEvent, and SensorEventListener. When the user shakes the device,
 the speed of the acceleration is calculated with a distance formula. The distance formula
 calculates the difference between the last acceleration and the most recent acceleration, and if it is
@@ -26,3 +26,4 @@ You need to cd into the src/user-status-backend folder in a terminal window
 ##When the homepage loads, the information for the posts is retrieved from firestore. This database contains a Post collection,
 which contains the post username, date, and content as well as a collection of replies. When a post is clicked, the replies made to that post
 is retrieved. A post and a comment are made in the same way.
+
