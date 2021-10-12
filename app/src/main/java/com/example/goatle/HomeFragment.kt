@@ -2,6 +2,7 @@ package com.example.goatle
 
 import android.content.Context
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -155,8 +156,6 @@ class HomeFragment : Fragment() {
         }
         postList.adapter = adapter3
         postList.layoutManager = LinearLayoutManager(context)
-
-
 
 //        (activity as MainActivity).setupListDataIntoRecyclerView(postList)
         createPostButton = view.findViewById(R.id.newPostButtonHomePage)
