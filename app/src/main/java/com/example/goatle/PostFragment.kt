@@ -11,8 +11,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
+import kotlin.random.Random.Default.nextInt
 
 class PostFragment : Fragment() {
 
@@ -20,18 +25,34 @@ class PostFragment : Fragment() {
     interface Callbacks {
         //fun onReplySelected(postId: UUID)
         fun onExitSelected()
+        fun onPostSelected()
     }
     private var callbacks: Callbacks? = null
 
     private lateinit var post: Post
     private lateinit var contentField: EditText
+    private lateinit var username: TextView
     private lateinit var date: TextView
     private lateinit var postButton: Button
     private lateinit var exitButton: Button
 
+    private  var KEY_Username : String = "postUsername"
+    private  var KEY_Date : String = "postDate"
+    private  var KEY_Content : String = "postContent"
+
+
+    val names: List<String> = listOf("Happy_Hen", "Funny_Flamingo", "Tiny_Tiger")
+
+    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+    val currentDate = sdf.format(Date())
+
+
+    private var dbd : FirebaseFirestore = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         post = Post()
+
     }
 
     override fun onAttach(context: Context) {
@@ -50,9 +71,12 @@ class PostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.post_fragment, container, false)
         contentField = view.findViewById(R.id.contentText) as EditText
         date = view.findViewById(R.id.dateView) as TextView
+        username = view.findViewById(R.id.userName) as TextView
+//        username = view.findViewById(R.id.postUsername) as TextView
         postButton = view.findViewById(R.id.postButton) as Button
         exitButton = view.findViewById(R.id.exitButton) as Button
 
@@ -60,11 +84,28 @@ class PostFragment : Fragment() {
             (activity as MainActivity).onExitSelected()
 
         }
+        postButton.setOnClickListener(){
+            savePost()
+            //contentField.text.clear()
+            (activity as MainActivity).onPostSelected()
 
-        date.apply {
-            text = post.date.toString()
+        }
+
+        username.apply {
+            text =  names.random()
             isEnabled = true
         }
+        date.apply{
+            text = currentDate
+            isEnabled = true
+
+        }
+
+//        username.apply {
+//            text = post.date.toString()
+//            isEnabled = true
+//        }
+
 
         return view }
 
@@ -96,4 +137,30 @@ class PostFragment : Fragment() {
         super.onDetach()
         callbacks = null
     }
+
+    fun savePost(){
+       var username2 : String   = username.text.toString()
+       var date2 : String   = date.text.toString()
+       var postC : String   = contentField.text.toString()
+
+
+        val post = HashMap<String,Any>()
+        post.put(KEY_Username, username2)
+        post.put(KEY_Date, date2)
+        post.put(KEY_Content, postC)
+
+        dbd.collection("Posts")
+            .add(post)
+            .addOnSuccessListener {
+                //Toast.makeText(context,"Data added ",Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener {
+               // Toast.makeText(context," Data not added ",Toast.LENGTH_LONG).show()
+            }
+
+    }
+
+
+
+
 }

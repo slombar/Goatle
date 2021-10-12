@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46349096280",
+    "project_id": "goatle",
+    "storage_bucket": "goatle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46349096280:android:d5aee0ca30662aa177012d",
+        "android_client_info": {
+          "package_name": "com.example.goatle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46349096280-vfrkm3mjm3brdp9e95olsrfl204ejjmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0aQe_wHmksqBLVGgH6bIPguOQS_CQPXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46349096280-vfrkm3mjm3brdp9e95olsrfl204ejjmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

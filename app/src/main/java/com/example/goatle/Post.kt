@@ -1,14 +1,15 @@
 package com.example.goatle
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+
 import java.util.*
 
-@Entity
-data class Post(@PrimaryKey val id: UUID = UUID.randomUUID(),
-                var title: String = "",
-                var date: Date = Date(),
+//data model class
+data class Post( val id: Int = 0,
+                var username: String = "",
+                var date: String = "",
                 var postContent: String = "",
                 var isSolved: Boolean = false) {
+
+
 
 }

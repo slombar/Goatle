@@ -8,58 +8,67 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/goatle_title"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Goatle"
-            android:textColor="#000000"
-            android:textSize="34sp"
-            android:typeface="sans" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/newPostButtonHomePage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#FFFFFF"
-            android:contentDescription="Chat Button"
-            app:layout_constraintBottom_toBottomOf="@+id/chatButtonHomePage"
-            app:srcCompat="@drawable/plus_icon"
-            app:tint="#000000"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/goatle_title"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Goatle"
+                android:textColor="#000000"
+                android:textSize="34sp"
+                android:typeface="sans" />
 
-        <ImageButton
-            android:id="@+id/chatButtonHomePage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#FFFFFF"
-            app:srcCompat="@drawable/chat_icon"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <ImageButton
+                android:id="@+id/newPostButtonHomePage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#FFFFFF"
+                android:contentDescription="Chat Button"
+                app:layout_constraintBottom_toBottomOf="@+id/chatButtonHomePage"
+                app:srcCompat="@drawable/plus_icon"
+                app:tint="#000000"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/chatButtonHomePage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#FFFFFF"
+                app:srcCompat="@drawable/chat_icon"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="50dp" >
+
+        </SearchView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
