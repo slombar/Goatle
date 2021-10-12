@@ -88,6 +88,7 @@ class ReplyFragment() : Fragment() {
 
             override fun onBindViewHolder(holder: ReplyViewHolder, p1: Int, reply: Reply) {
                 holder.bind(reply)
+
             }
 
         }
@@ -145,6 +146,7 @@ class ReplyFragment() : Fragment() {
 
         }
     }
+
     override fun onStart() {
         super.onStart()
         val titleWatcher = object : TextWatcher {
