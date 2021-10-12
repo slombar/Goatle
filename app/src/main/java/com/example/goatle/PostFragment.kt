@@ -55,10 +55,10 @@ class PostFragment : Fragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    //override fun onAttach(context: Context) {
+    //    super.onAttach(context)
         //callbacks = context as Callbacks?
-    }
+    //}
 
     private inner class PostHolder(view: View)
         :  View.OnClickListener {
