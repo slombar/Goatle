@@ -36,9 +36,7 @@ class ReplyFragment() : Fragment() {
     private lateinit var postUsername: TextView
     private lateinit var postDate: TextView
     private lateinit var postContent: TextView
-
     private var dbd : FirebaseFirestore = FirebaseFirestore.getInstance()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +46,6 @@ class ReplyFragment() : Fragment() {
     private val replyListViewModel: ReplyListViewModel by lazy {
         ViewModelProviders.of(this).get(ReplyListViewModel::class.java)
     }
-
 
     private lateinit var replyList: RecyclerView
    // private var adapter: ReplyAdapter? = null
@@ -76,8 +73,6 @@ class ReplyFragment() : Fragment() {
             view.findViewById(R.id.replyList2) as RecyclerView
         //replyList.layoutManager = LinearLayoutManager(context)
 
-
-
         val postId: String = arguments?.getSerializable(ARG_Post_ID) as String
         Log.d(TAG, "PostID: ${postId}")
 
@@ -92,11 +87,7 @@ class ReplyFragment() : Fragment() {
             }
 
             override fun onBindViewHolder(holder: ReplyViewHolder, p1: Int, reply: Reply) {
-
                 holder.bind(reply)
-
-
-
 
             }
 
@@ -151,6 +142,7 @@ class ReplyFragment() : Fragment() {
 
         }
     }
+
     override fun onStart() {
         super.onStart()
         val titleWatcher = object : TextWatcher {
@@ -175,7 +167,6 @@ class ReplyFragment() : Fragment() {
         // contentField.addTextChangedListener(titleWatcher)
     }
 
-
     private inner class ReplyHolder(view: View)
         : RecyclerView.ViewHolder(view){
 
@@ -185,9 +176,6 @@ class ReplyFragment() : Fragment() {
         val dateTextView: TextView = itemView.findViewById(R.id.replyDate)
         val replyContentTV : TextView = itemView.findViewById(R.id.replyContent)
 
-
-
-
         fun bind(reply: Reply) {
             this.reply = reply
             usernameTextView.text = this.reply.replyUsername
@@ -195,10 +183,8 @@ class ReplyFragment() : Fragment() {
             replyContentTV.text = this.reply.replyContent
 
         }
-
-
-
     }
+
     private inner class ReplyAdapter(var replys: List<Reply>)
         : RecyclerView.Adapter<ReplyHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
