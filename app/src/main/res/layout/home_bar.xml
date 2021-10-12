@@ -58,12 +58,6 @@
 
         </LinearLayout>
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="50dp" >
-
-        </SearchView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postList"
             android:layout_width="match_parent"
