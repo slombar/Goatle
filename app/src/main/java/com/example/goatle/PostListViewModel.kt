@@ -9,8 +9,8 @@ class PostListViewModel: ViewModel() {
     init {
         for (i in 0 until 5) {
             val post = Post()
-            post.username = "Happy_Hippo"
-            post.date = "October 10, 2021"
+            post.postUsername = "Happy_Hippo"
+            post.postDate = "October 10, 2021"
             post.postContent = "This class is hard"
             posts += post
         } }

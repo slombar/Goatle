@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.175" />
         <entry key="..\:/Users/sadie/AndroidStudioProjects/Goatle/app/src/main/res/drawable/chaticon.xml" value="0.3828125" />
         <entry key="..\:/Users/sadie/AndroidStudioProjects/Goatle/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/sadie/AndroidStudioProjects/Goatle/app/src/main/res/layout/chat_bar.xml" value="0.30480072463768115" />
@@ -15,7 +16,9 @@
         <entry key="app/src/main/res/layout/post_fragment.xml" value="0.22327898550724637" />
         <entry key="app/src/main/res/layout/post_layout.xml" value="0.25835075164956034" />
         <entry key="app/src/main/res/layout/reply_fragment.xml" value="0.22327898550724637" />
+        <entry key="app/src/main/res/layout/reply_fragment2.xml" value="0.21979166666666666" />
         <entry key="app/src/main/res/layout/reply_layout.xml" value="0.22327898550724637" />
+        <entry key="app/src/main/res/layout/reply_layout2.xml" value="0.21979166666666666" />
         <entry key="app/src/main/res/layout/single_chat_item.xml" value="0.22327898550724637" />
       </map>
     </option>
