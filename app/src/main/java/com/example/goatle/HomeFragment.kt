@@ -1,8 +1,9 @@
 package com.example.goatle
+import sadieapi.*
+
 
 import android.content.Context
 import android.graphics.Color
-
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.core.content.ContextCompat
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
-
 import androidx.annotation.NonNull
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import sadieapi.*
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DatabaseReference
@@ -31,7 +31,7 @@ import com.google.firebase.firestore.*
 
 
 private const val TAG = "HomeFragmentTag"
-
+private const val REQUEST_CODE_CHAT = 0
 private const val KEY_NICKNAME = "key_nickname_home"
 
 class HomeFragment : Fragment() {
@@ -159,8 +159,6 @@ class HomeFragment : Fragment() {
         postList.adapter = adapter3
         postList.layoutManager = LinearLayoutManager(context)
 
-
-
 //        (activity as MainActivity).setupListDataIntoRecyclerView(postList)
         createPostButton = view.findViewById(R.id.newPostButtonHomePage)
 
@@ -171,9 +169,10 @@ class HomeFragment : Fragment() {
 
         chatHomeButton = view.findViewById(R.id.chatButtonHomePage)
 
-//        chatHomeButton.setOnClickListener {
-//            (activity as MainActivity).onChatButtonClicked()
-//        }
+        chatHomeButton.setOnClickListener {
+            val intent = ChatMainActivity.newIntent(activity as MainActivity)
+            startActivityForResult(intent, REQUEST_CODE_CHAT)
+        }
 
         //updateUI()
         return view
