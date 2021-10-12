@@ -1,5 +1,7 @@
 package com.example.goatle
 
+import android.content.ClipData.newIntent
+import android.content.Intent
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -11,10 +13,11 @@ import android.widget.ImageButton
 import android.util.Log
 
 import androidx.fragment.app.Fragment
+import sadieapi.ChatMainActivity
 import java.util.*
 
 private const val TAG = "HomeFragmentTag"
-
+private const val REQUEST_CODE_CHAT = 0
 private const val KEY_NICKNAME = "key_nickname_home"
 
 class HomeFragment : Fragment() {
@@ -89,7 +92,6 @@ class HomeFragment : Fragment() {
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.home_bar, container, false)
-        //TODO assign buttons
 
         createPostButton = view.findViewById(R.id.newPostButtonHomePage)
 
@@ -100,7 +102,8 @@ class HomeFragment : Fragment() {
         chatHomeButton = view.findViewById(R.id.chatButtonHomePage)
 
         chatHomeButton.setOnClickListener {
-            (activity as MainActivity).onChatButtonClicked()
+            val intent = ChatMainActivity.newIntent(activity as MainActivity)
+            startActivityForResult(intent, REQUEST_CODE_CHAT)
         }
 
         return view

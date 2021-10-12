@@ -1,9 +1,21 @@
+
 plugins {
+    id("org.springframework.boot") version "2.5.5"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id 'com.android.application'
     id 'kotlin-android'
 }
 
+group = "com.example.goatle"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+
 android {
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+
     compileSdk 31
 
     defaultConfig {
@@ -42,8 +54,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.room:room-runtime:2.4.0-alpha05'
-    implementation 'com.pusher:pusher-java-client:1.8.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+    // pusher dependency
+    implementation 'com.pusher:pusher-java-client:2.2.6'
+
+    // retrofit dependency
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
+
 }
