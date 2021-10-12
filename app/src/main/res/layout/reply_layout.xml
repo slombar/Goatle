@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/replyLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,16 +23,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:text="TextView" />
+                android:text="Testt"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/replyDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:text="TextView" />
+                android:text="Test"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
@@ -40,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#FFFFFF"
-            android:text="TextView" />
+            android:text="Test"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

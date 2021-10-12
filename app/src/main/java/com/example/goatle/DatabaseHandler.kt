@@ -42,8 +42,8 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_Nam
 
         val contentValues = ContentValues()
         contentValues.put(postID, post.id)
-        contentValues.put(postUsername, post.username)
-        contentValues.put(postDate, post.date)
+        contentValues.put(postUsername, post.postUsername)
+        contentValues.put(postDate, post.postDate)
         contentValues.put(postContent, post.postContent)
 
         val success = db.insert(DATABASE_Table, null, contentValues)
@@ -81,7 +81,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_Nam
                 Date = cursor.getString(cursor.getColumnIndex(postDate))
                 postCont = cursor.getString(cursor.getColumnIndex(postContent))
 
-                val emp = Post(id = ID, username = username, date = Date, postContent = postCont)
+                val emp = Post(id = ID, postUsername = username, postDate = Date, postContent = postCont)
                 emptyList.add(emp)
 
             } while (cursor.moveToNext())
@@ -96,8 +96,8 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_Nam
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(postID, post.id)
-        contentValues.put(postUsername, post.username)
-        contentValues.put(postDate, post.date)
+        contentValues.put(postUsername, post.postUsername)
+        contentValues.put(postDate, post.postDate)
         contentValues.put(postContent, post.postContent)
 
         val success = db.update(DATABASE_Table, contentValues, postID + post.id, null)

@@ -1,7 +1,6 @@
 package com.example.goatle
 
 import android.content.Context
-import android.graphics.Color
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,22 +10,16 @@ import android.view.ViewGroup
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-import androidx.core.content.ContextCompat
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.ktx.Firebase
 import java.util.*
-import kotlin.collections.ArrayList
 
-import androidx.annotation.NonNull
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.*
 
 
@@ -102,14 +95,14 @@ class HomeFragment : Fragment() {
 
 
         Log.d(TAG, "Chat Fragment Started")
-        Log.d(TAG, "Total crimes: ${postListViewModel.posts.size}")
+
     }
 
 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(KEY_NICKNAME, username)
+        //outState.putString(KEY_NICKNAME, username)
 
     }
     companion object {
@@ -129,7 +122,7 @@ class HomeFragment : Fragment() {
 
 
         val view = inflater.inflate(R.layout.home_bar, container, false)
-        postList = view.findViewById(R.id.postList) as RecyclerView
+        postList = view.findViewById(R.id.replyList2) as RecyclerView
         //postList.layoutManager = LinearLayoutManager(context)
 
 
@@ -139,6 +132,7 @@ class HomeFragment : Fragment() {
         val adapter3 = object: FirestoreRecyclerAdapter<Post, PostViewHolder>(options){
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
                 val view = layoutInflater.inflate(R.layout.post_layout, parent, false)
+
                 return PostViewHolder(view)
             }
 
@@ -150,8 +144,11 @@ class HomeFragment : Fragment() {
 //                usernameTextView.text = post.username
 //                dateTextView.text = post.date
 //                contentTV.text = post.postContent
+                var documentId = snapshots.getSnapshot(p1).id
+                Log.d(TAG, "Total crimsdfdfes: ${documentId}")
 
-                holder.bind(post)
+
+                holder.bind(post, documentId)
 
             }
 
@@ -182,23 +179,27 @@ class HomeFragment : Fragment() {
 
     inner class PostViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         private lateinit var post: Post
-        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
-        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
-        val contentTV : TextView = itemView.findViewById(R.id.postContent)
+        val usernameTextView: TextView = itemView.findViewById(R.id.replyUsername2)
+        val dateTextView: TextView = itemView.findViewById(R.id.replyDate2)
+        val contentTV : TextView = itemView.findViewById(R.id.replyContent2)
+        lateinit var doc :String
+
 
         init {
             itemView.setOnClickListener(this)
 
         }
-        fun bind(post: Post) {
+        fun bind(post: Post, dId : String) {
+             doc = dId
             this.post = post
-            usernameTextView.text = this.post.username
-            dateTextView.text = this.post.date
+            usernameTextView.text = this.post.postUsername
+            dateTextView.text = this.post.postDate
             contentTV.text = this.post.postContent
 
         }
         override fun onClick(p0: View?) {
-            (activity as MainActivity).onReplyClicked(post.id.toString())
+
+            (activity as MainActivity).onReplyClicked(doc)
         }
 
     }
@@ -214,63 +215,63 @@ class HomeFragment : Fragment() {
 
     }
 
-    private inner class PostAdapter(var posts: List<Post>)
-        : RecyclerView.Adapter<PostHolder>() {
-
-
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-                : PostHolder {
-            val view = layoutInflater.inflate(R.layout.post_layout, parent, false)
-
-            return PostHolder(view)
-        }
-        override fun getItemCount() = posts.size
-
-        override fun onBindViewHolder(holder: PostHolder, position: Int) {
-            val post = posts[position]
-
-            if(position %2 == 1) {
-            holder?.itemView.setBackgroundColor(Color.parseColor("#d3d3ff"))}
-            else{
-                holder?.itemView.setBackgroundColor(Color.parseColor("#d393ff"))
-            }
-            holder.bind(post)
-
-        }
-
-        }
-
-
-    private inner class PostHolder(view: View)
-        : RecyclerView.ViewHolder(view), View.OnClickListener {
-
-        private lateinit var post: Post
-
-        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
-        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
-        val contentTV : TextView = itemView.findViewById(R.id.postContent)
-
-
-
-
-        init {
-            itemView.setOnClickListener(this)
-
-        }
-
-        fun bind(post: Post) {
-            this.post = post
-            usernameTextView.text = this.post.username
-            dateTextView.text = this.post.date
-            contentTV.text = this.post.postContent
-
-        }
-
-        override fun onClick(p0: View?) {
-            (activity as MainActivity).onReplyClicked(post.id.toString())
-        }
-    }
+//    private inner class PostAdapter(var posts: List<Post>)
+//        : RecyclerView.Adapter<PostHolder>() {
+//
+//
+//
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+//                : PostHolder {
+//            val view = layoutInflater.inflate(R.layout.post_layout, parent, false)
+//
+//            return PostHolder(view)
+//        }
+//        override fun getItemCount() = posts.size
+//
+//        override fun onBindViewHolder(holder: PostHolder, position: Int) {
+//            val post = posts[position]
+//
+//            if(position %2 == 1) {
+//            holder?.itemView.setBackgroundColor(Color.parseColor("#d3d3ff"))}
+//            else{
+//                holder?.itemView.setBackgroundColor(Color.parseColor("#d393ff"))
+//            }
+//            holder.bind(post)
+//
+//        }
+//
+//        }
+//
+//
+//    private inner class PostHolder(view: View)
+//        : RecyclerView.ViewHolder(view), View.OnClickListener {
+//
+//        private lateinit var post: Post
+//
+//        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
+//        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
+//        val contentTV : TextView = itemView.findViewById(R.id.postContent)
+//
+//
+//
+//
+//        init {
+//            itemView.setOnClickListener(this)
+//
+//        }
+//
+//        fun bind(post: Post) {
+//            this.post = post
+//            usernameTextView.text = this.post.postUsername
+//            dateTextView.text = this.post.postDate
+//            contentTV.text = this.post.postContent
+//
+//        }
+//
+//        override fun onClick(p0: View?) {
+//            (activity as MainActivity).onReplyClicked(post.id.toString())
+//        }
+//    }
 
 
 }
