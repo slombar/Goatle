@@ -27,9 +27,7 @@ class ReplyFragment() : Fragment() {
 
     interface Callbacks {
         fun onReplyPostSelected(isReply : Boolean, postID : String)
-
         fun replyToHome()
-
     }
 
     private var callbacks: ReplyFragment.Callbacks? = null
@@ -42,6 +40,7 @@ class ReplyFragment() : Fragment() {
 
     private var dbd : FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    private lateinit var replyList: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,19 +52,14 @@ class ReplyFragment() : Fragment() {
     }
 
 
-    private lateinit var replyList: RecyclerView
-   // private var adapter: ReplyAdapter? = null
-
     companion object {
         fun newInstance(id:String): ReplyFragment {
-
             val args = Bundle().apply {
                 putSerializable(ARG_Post_ID, id)
             }
             return ReplyFragment().apply {
                 arguments = args
             }
-
         }
     }
     override fun onCreateView(
@@ -77,8 +71,6 @@ class ReplyFragment() : Fragment() {
         val view = inflater.inflate(R.layout.reply_fragment2, container, false)
         replyList =
             view.findViewById(R.id.postList) as RecyclerView
-        //replyList.layoutManager = LinearLayoutManager(context)
-
 
 
         val postId: String = arguments?.getSerializable(ARG_Post_ID) as String
@@ -95,12 +87,7 @@ class ReplyFragment() : Fragment() {
             }
 
             override fun onBindViewHolder(holder: ReplyViewHolder, p1: Int, reply: Reply) {
-
                 holder.bind(reply)
-
-
-
-
             }
 
         }
@@ -135,14 +122,9 @@ class ReplyFragment() : Fragment() {
         }
         replyList.adapter = adapter3
         replyList.layoutManager = LinearLayoutManager(context)
-        //updateUI()
+
         return view }
 
-    private fun updateUI() {
-//        val replys = replyListViewModel.replys
-//        adapter = ReplyAdapter(replys)
-//        replyList.adapter = adapter
-    }
 
     class ReplyViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         private lateinit var reply: Reply
@@ -184,49 +166,6 @@ class ReplyFragment() : Fragment() {
                 // This one too
             }
         }
-        // contentField.addTextChangedListener(titleWatcher)
     }
 
-
-    private inner class ReplyHolder(view: View)
-        : RecyclerView.ViewHolder(view){
-
-        private lateinit var reply: Reply
-
-        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
-        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
-        val replyContentTV : TextView = itemView.findViewById(R.id.postContent)
-
-
-
-
-        fun bind(reply: Reply) {
-            this.reply = reply
-            usernameTextView.text = this.reply.replyUsername
-            dateTextView.text = this.reply.replyDate
-            replyContentTV.text = this.reply.replyContent
-
-        }
-
-
-
-    }
-    private inner class ReplyAdapter(var replys: List<Reply>)
-        : RecyclerView.Adapter<ReplyHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-                : ReplyHolder {
-            val view = layoutInflater.inflate(R.layout.reply_layout, parent, false)
-            return ReplyHolder(view)
-        }
-        override fun getItemCount() = replys.size
-
-        override fun onBindViewHolder(holder: ReplyHolder, position: Int) {
-            val reply = replys[position]
-            if(position %2 == 1) {
-                holder?.itemView.setBackgroundColor(Color.parseColor("#5F8575"))}
-            else{
-                holder?.itemView.setBackgroundColor(Color.parseColor("#228B22"))
-            }
-            holder.bind(reply)
-        } }
 }
