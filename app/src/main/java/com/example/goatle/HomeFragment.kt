@@ -1,4 +1,5 @@
 package com.example.goatle
+
 import sadieapi.*
 
 
@@ -36,23 +37,32 @@ private const val KEY_NICKNAME = "key_nickname_home"
 
 class HomeFragment : Fragment() {
 
+    val hex1 = "#d3d3ff"
+    val hex2 = "#d393ff"
+    val hex3 = "#de66dc"
+    val hex4 = "#de6672"
+
+    var backgroundColor1 = hex1
+    var backgroundColor2 = hex2
+
+
     interface Callbacks {
         fun onCreatePostSelected()
         fun onReplyClicked(id: String)
 
     }
+
     private val postListViewModel: PostListViewModel by lazy {
         ViewModelProviders.of(this).get(PostListViewModel::class.java)
 
     }
     private var callbacks: Callbacks? = null
-    private lateinit var createPostButton : ImageButton
+    private lateinit var createPostButton: ImageButton
 
-    private var dbd : FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var dbd: FirebaseFirestore = FirebaseFirestore.getInstance()
 
 
-
-    private lateinit var postList : RecyclerView
+    private lateinit var postList: RecyclerView
     //private var adapter: PostAdapter? = null
 
 
@@ -73,16 +83,20 @@ class HomeFragment : Fragment() {
                 sequence: CharSequence?,
                 start: Int,
                 count: Int,
-                after: Int ){
+                after: Int
+            ) {
                 // This space intentionally left blank
             }
+
             override fun onTextChanged(
                 sequence: CharSequence?,
                 start: Int,
                 before: Int,
-                count: Int ){
+                count: Int
+            ) {
                 //crime.title = sequence.toString()
             }
+
             override fun afterTextChanged(sequence: Editable?) {
                 // This one too
             }
@@ -91,10 +105,11 @@ class HomeFragment : Fragment() {
 
 
     }
+
+
     val username = "testUsername"
     private lateinit var chatHomeButton: ImageButton
     private lateinit var newPost: ImageButton
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,12 +121,12 @@ class HomeFragment : Fragment() {
     }
 
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_NICKNAME, username)
 
     }
+
     companion object {
         fun newInstance(): HomeFragment {
             return HomeFragment()
@@ -133,16 +148,16 @@ class HomeFragment : Fragment() {
         //postList.layoutManager = LinearLayoutManager(context)
 
 
-        val query : CollectionReference = dbd.collection("Posts")
+        val query: CollectionReference = dbd.collection("Posts")
         val options = FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post::class.java)
             .setLifecycleOwner(this).build()
-        val adapter3 = object: FirestoreRecyclerAdapter<Post, PostViewHolder>(options){
+        val adapter3 = object : FirestoreRecyclerAdapter<Post, PostViewHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
                 val view = layoutInflater.inflate(R.layout.post_layout, parent, false)
                 return PostViewHolder(view)
             }
 
-            override fun onBindViewHolder(holder: PostViewHolder, p1: Int, post: Post)  {
+            override fun onBindViewHolder(holder: PostViewHolder, p1: Int, post: Post) {
 //                val usernameTextView: TextView = holder.itemView.findViewById(R.id.postUsername)
 //                val dateTextView: TextView = holder.itemView.findViewById(R.id.postDate)
 //                val contentTV : TextView = holder.itemView.findViewById(R.id.postContent)
@@ -159,7 +174,6 @@ class HomeFragment : Fragment() {
         postList.adapter = adapter3
         postList.layoutManager = LinearLayoutManager(context)
 
-//        (activity as MainActivity).setupListDataIntoRecyclerView(postList)
         createPostButton = view.findViewById(R.id.newPostButtonHomePage)
 
 
@@ -174,21 +188,22 @@ class HomeFragment : Fragment() {
             startActivityForResult(intent, REQUEST_CODE_CHAT)
         }
 
-        //updateUI()
         return view
 
     }
 
-    inner class PostViewHolder(itemView : View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         private lateinit var post: Post
         val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
         val dateTextView: TextView = itemView.findViewById(R.id.postDate)
-        val contentTV : TextView = itemView.findViewById(R.id.postContent)
+        val contentTV: TextView = itemView.findViewById(R.id.postContent)
 
         init {
             itemView.setOnClickListener(this)
 
         }
+
         fun bind(post: Post) {
             this.post = post
             usernameTextView.text = this.post.username
@@ -196,27 +211,31 @@ class HomeFragment : Fragment() {
             contentTV.text = this.post.postContent
 
         }
+
         override fun onClick(p0: View?) {
             (activity as MainActivity).onReplyClicked(post.id.toString())
         }
 
     }
 
-//    private fun updateUI() {
-//        val posts = postListViewModel.posts
-//        adapter = PostAdapter(posts)
-//        postList.adapter = adapter
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
     }
 
-    private inner class PostAdapter(var posts: List<Post>)
-        : RecyclerView.Adapter<PostHolder>() {
+    //TODO COLOR CHANGING
 
+    fun changeColors(shook : Boolean){
+        if(shook) {
+            backgroundColor1 = hex3
+            backgroundColor2 = hex4
+        }else{
+            backgroundColor1 = hex1
+            backgroundColor2 = hex2
+        }
+    }
 
+    private inner class PostAdapter(var posts: List<Post>) : RecyclerView.Adapter<PostHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
                 : PostHolder {
@@ -224,34 +243,31 @@ class HomeFragment : Fragment() {
 
             return PostHolder(view)
         }
+
         override fun getItemCount() = posts.size
 
         override fun onBindViewHolder(holder: PostHolder, position: Int) {
             val post = posts[position]
 
-            if(position %2 == 1) {
-            holder?.itemView.setBackgroundColor(Color.parseColor("#d3d3ff"))}
-            else{
+            if (position % 2 == 1) {
+                holder?.itemView.setBackgroundColor(Color.parseColor("#d3d3ff"))
+            } else {
                 holder?.itemView.setBackgroundColor(Color.parseColor("#d393ff"))
             }
             holder.bind(post)
 
         }
+    }
 
-        }
 
-
-    private inner class PostHolder(view: View)
-        : RecyclerView.ViewHolder(view), View.OnClickListener {
+    private inner class PostHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
 
         private lateinit var post: Post
 
         val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
         val dateTextView: TextView = itemView.findViewById(R.id.postDate)
-        val contentTV : TextView = itemView.findViewById(R.id.postContent)
-
-
-
+        val contentTV: TextView = itemView.findViewById(R.id.postContent)
 
         init {
             itemView.setOnClickListener(this)

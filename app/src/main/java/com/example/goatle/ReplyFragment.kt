@@ -170,6 +170,7 @@ class ReplyFragment() : Fragment() {
             return ReplyHolder(view)
         }
         override fun getItemCount() = replys.size
+
         override fun onBindViewHolder(holder: ReplyHolder, position: Int) {
             val reply = replys[position]
             if(position %2 == 1) {
