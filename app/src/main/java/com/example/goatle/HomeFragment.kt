@@ -247,4 +247,5 @@ class HomeFragment : Fragment() {
             backgroundColor2 = hex2
         }
     }
+
 }

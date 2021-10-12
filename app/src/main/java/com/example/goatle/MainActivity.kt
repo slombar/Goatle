@@ -26,15 +26,6 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
 
 
     var shook = false
-    private  var ip : String = ""
-    private var port : String = "1433"
-    private var Class: String = "net.sourceforge.jtds.jdbc.Driver"
-    private var database : String = "Content"
-    private var username : String = "sa"
-    private var password : String = "Mobile2021"
-    private var url : String = "jdbc:jtds:sqlserver://"+ip+":"+port+"/"+database
-
-    private var connection: Connection? = null
 
     //accelerometer sensor
     private var sensorManager: SensorManager? = null
@@ -88,7 +79,6 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         if (currentFragment == null) {
-            Log.d(TAG, "The current fragment is null idiot moron")
             val fragment = HomeFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
@@ -97,13 +87,10 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
                 .commit()
 
         }
-
-        //set up reclyviewer
     }
 
     //TODO CHANGE COLORS
     fun onDeviceShook(){
-        //first shake = true
 
             val fragment = HomeFragment.newInstance()
 
@@ -135,32 +122,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
             .commit()
     }
 
-    fun onHomeButtonClicked(){
-        val fragment = HomeFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_container, fragment)
-            .commit()
-    }
 
-    fun addRecord(view: View, usernameText: String, postText: String, contentText: String){
-        val username = usernameText
-        val date = postText
-        val content = contentText
-        val dataBaseHandler : DatabaseHandler = DatabaseHandler(this)
-        if(!username.isEmpty() && !date.isEmpty() && !content.isEmpty()){
-            val status = dataBaseHandler.addPost(Post(0, username, date, content))
-            if(status > -1){
-                Toast.makeText(applicationContext, "Record Saved", Toast.LENGTH_LONG)
-
-                //missing a function dealing with reclye viewer
-            }
-        }
-        else{
-            Toast.makeText(applicationContext, "Cannot be blank", Toast.LENGTH_LONG).show()
-        }
-
-    }
     override fun onPostSelected() {
         val fragment = HomeFragment()
         supportFragmentManager

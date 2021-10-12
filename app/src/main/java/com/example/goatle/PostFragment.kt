@@ -28,7 +28,6 @@ class PostFragment : Fragment() {
 
 
     interface Callbacks {
-        //fun onReplySelected(postId: UUID)
         fun onExitSelected()
         fun replyCreated(id: String)
         fun onPostSelected()
@@ -38,6 +37,7 @@ class PostFragment : Fragment() {
     private lateinit var post: Post
     private lateinit var contentField: EditText
     private lateinit var username: TextView
+    private lateinit var title: TextView
     private lateinit var date: TextView
     private lateinit var postButton: Button
     private lateinit var exitButton: Button
@@ -50,18 +50,16 @@ class PostFragment : Fragment() {
     private  var KEY_DateR : String = "replyDate"
     private  var KEY_ContentR : String = "replyContent"
 
-    val names: List<String> = listOf("Happy_Hen", "Funny_Flamingo", "Tiny_Tiger")
+    val names: List<String> = listOf("Happy_Hen", "Funny_Flamingo", "Tiny_Tiger", "Red_Robin")
 
     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = sdf.format(Date())
-
 
     private var dbd : FirebaseFirestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         post = Post()
-
     }
 
     companion object {
@@ -69,25 +67,12 @@ class PostFragment : Fragment() {
             val args = Bundle().apply {
                 putSerializable(ARG_IsReply, isReply.toString())//true when comes from reply
                 putSerializable(ARG_Post_ID, postId)
-
             }
             return PostFragment().apply {
                 arguments = args
             }
         }
     }
-
-
-    //override fun onAttach(context: Context) {
-    //    super.onAttach(context)
-        //callbacks = context as Callbacks?
-    //}
-
-    private inner class PostHolder(view: View)
-        :  View.OnClickListener {
-        override fun onClick(v: View?) {
-           // callbacks?.onReplySelected(post.id)
-        }}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,19 +81,23 @@ class PostFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.post_fragment, container, false)
+        //setting the fields
         contentField = view.findViewById(R.id.contentText) as EditText
         date = view.findViewById(R.id.dateView) as TextView
         username = view.findViewById(R.id.userName) as TextView
-//        username = view.findViewById(R.id.postUsername) as TextView
         postButton = view.findViewById(R.id.postButton) as Button
         exitButton = view.findViewById(R.id.exitButton) as Button
+        title = view.findViewById(R.id.postTitle) as TextView
 
-        exitButton.setOnClickListener {
-            (activity as MainActivity).onExitSelected()
+
+        val postId2: String = arguments?.getSerializable(ARG_Post_ID) as String
+        if(postId2 != "none"){
+            title.setText("Create a Reply")
+        }else if(postId2 == "none"){
+            title.setText("Create a Post")
 
         }
-        val postId2: String = arguments?.getSerializable(ARG_Post_ID) as String
-        val isReply: String = arguments?.getSerializable(ARG_Post_ID) as String
+
         postButton.setOnClickListener(){
             if(postId2 != "none"){
                 savePostReply()
@@ -119,26 +108,24 @@ class PostFragment : Fragment() {
                 savePost()
                 (activity as MainActivity).onPostSelected()
             }
+        }
 
-
+        exitButton.setOnClickListener {
+            (activity as MainActivity).onExitSelected()
 
         }
 
+        //setting random username
         username.apply {
             text =  names.random()
             isEnabled = true
         }
+        //setting current date
         date.apply{
             text = currentDate
             isEnabled = true
 
         }
-
-//        username.apply {
-//            text = post.date.toString()
-//            isEnabled = true
-//        }
-
 
         return view }
 
