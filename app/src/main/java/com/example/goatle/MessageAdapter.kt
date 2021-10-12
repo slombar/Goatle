@@ -44,16 +44,16 @@ class MessageAdapter (val context: Context) : RecyclerView.Adapter<MessageViewHo
         return messages.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val message = messages.get(position)
-
-        return if(App.user == message.user) {
-            VIEW_TYPE_MY_MESSAGE
-        }
-        else {
-            VIEW_TYPE_OTHER_MESSAGE
-        }
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        val message = messages.get(position)
+//
+//        return if(App.user == message.user) {
+//            VIEW_TYPE_MY_MESSAGE
+//        }
+//        else {
+//            VIEW_TYPE_OTHER_MESSAGE
+//        }
+//    }
 
     inner class MyMessageViewHolder(view: View) : MessageViewHolder(view) {
         private var messageText: TextView = view.findViewById(R.id.txtMyMessage)

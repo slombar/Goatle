@@ -70,13 +70,13 @@ class MainActivity : AppCompatActivity(),  HomeFragment.Callbacks, PostFragment.
             .commit()
     }
 
-    fun onChatButtonClicked(){
-        val fragment = ChatFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_container, fragment)
-            .commit()
-    }
+//    fun onChatButtonClicked(){
+//        val fragment = ChatFragment()
+//        supportFragmentManager
+//            .beginTransaction()
+//            .add(R.id.fragment_container, fragment)
+//            .commit()
+//    }
     fun addRecord(view: View, usernameText: String, postText: String, contentText: String){
         val username = usernameText
         val date = postText

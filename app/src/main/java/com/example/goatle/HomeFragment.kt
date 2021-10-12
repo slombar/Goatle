@@ -171,9 +171,9 @@ class HomeFragment : Fragment() {
 
         chatHomeButton = view.findViewById(R.id.chatButtonHomePage)
 
-        chatHomeButton.setOnClickListener {
-            (activity as MainActivity).onChatButtonClicked()
-        }
+//        chatHomeButton.setOnClickListener {
+//            (activity as MainActivity).onChatButtonClicked()
+//        }
 
         //updateUI()
         return view
