@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4d76c513a93903051dd904c214f2761a/transformed/jetified-firebase-ui-common-4.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d76c513a93903051dd904c214f2761a/transformed/jetified-firebase-ui-common-4.1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d76c513a93903051dd904c214f2761a/transformed/jetified-firebase-ui-common-4.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0931d26149c1e7498e79ec9bf9f1e4c4/transformed/jetified-firebase-ui-common-4.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0931d26149c1e7498e79ec9bf9f1e4c4/transformed/jetified-firebase-ui-common-4.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0931d26149c1e7498e79ec9bf9f1e4c4/transformed/jetified-firebase-ui-common-4.1.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.firebaseui/firebase-ui-common/4.1.0/d4babc3409049504040d4390c090cf33fe37f947/firebase-ui-common-4.1.0-javadoc.jar!/" />

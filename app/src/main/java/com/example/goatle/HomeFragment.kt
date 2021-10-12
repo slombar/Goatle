@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
 
 
         val view = inflater.inflate(R.layout.home_bar, container, false)
-        postList = view.findViewById(R.id.replyList2) as RecyclerView
+        postList = view.findViewById(R.id.postList) as RecyclerView
         //postList.layoutManager = LinearLayoutManager(context)
 
 
@@ -167,6 +167,13 @@ class HomeFragment : Fragment() {
 //                contentTV.text = post.postContent
                 var documentId = snapshots.getSnapshot(p1).id
                 Log.d(TAG, "Total crimsdfdfes: ${documentId}")
+
+
+                if (p1 % 2 == 1) {
+                    holder?.itemView.setBackgroundColor(Color.parseColor(backgroundColor1))
+                } else {
+                    holder?.itemView.setBackgroundColor(Color.parseColor(backgroundColor2))
+                }
 
 
                 holder.bind(post, documentId)
@@ -198,9 +205,9 @@ class HomeFragment : Fragment() {
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         private lateinit var post: Post
-        val usernameTextView: TextView = itemView.findViewById(R.id.replyUsername)
-        val dateTextView: TextView = itemView.findViewById(R.id.replyDate)
-        val contentTV : TextView = itemView.findViewById(R.id.replyContent)
+        val usernameTextView: TextView = itemView.findViewById(R.id.postUsername)
+        val dateTextView: TextView = itemView.findViewById(R.id.postDate)
+        val contentTV : TextView = itemView.findViewById(R.id.postContent)
         lateinit var doc :String
 
 

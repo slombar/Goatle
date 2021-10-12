@@ -16,3 +16,8 @@ RecycleView on the same page.
 ##Compilation Instructions
 ###To run the local server
 You need to cd into the src/user-status-backend folder in a terminal window
+
+##Cloud Firestore
+##When the homepage loads, the information for the posts is retrieved from firestore. This database contains a Post collection,
+which contains the post username, date, and content as well as a collection of replies. When a post is clicked, the replies made to that post
+is retrieved. A post and a comment are made in the same way.
