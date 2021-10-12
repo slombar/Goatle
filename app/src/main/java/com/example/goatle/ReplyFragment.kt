@@ -1,5 +1,6 @@
 package com.example.goatle
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -189,8 +190,8 @@ class ReplyFragment() : Fragment() {
 
         fun bind(reply: Reply) {
             this.reply = reply
-            usernameTextView.text = this.reply.username
-            dateTextView.text = this.reply.date
+            usernameTextView.text = this.reply.replyUsername
+            dateTextView.text = this.reply.replyDate
             replyContentTV.text = this.reply.replyContent
 
         }

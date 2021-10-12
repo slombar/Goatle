@@ -1,7 +1,5 @@
 package com.example.goatle
 
-import sadieapi.*
-
 
 import android.content.Context
 
@@ -14,21 +12,26 @@ import android.view.ViewGroup
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
 import java.util.*
-
+import kotlin.collections.ArrayList
+import androidx.annotation.NonNull
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import sadieapi.ChatMainActivity
 
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.*
 
 
 private const val TAG = "HomeFragmentTag"
-
+private const val REQUEST_CODE_CHAT = 0
 private const val KEY_NICKNAME = "key_nickname_home"
 
 class HomeFragment : Fragment() {
@@ -183,9 +186,10 @@ class HomeFragment : Fragment() {
 
         chatHomeButton = view.findViewById(R.id.chatButtonHomePage)
 
-//        chatHomeButton.setOnClickListener {
-//            (activity as MainActivity).onChatButtonClicked()
-//        }
+        chatHomeButton.setOnClickListener {
+            val intent = ChatMainActivity.newIntent(activity as MainActivity)
+            startActivityForResult(intent, REQUEST_CODE_CHAT)
+        }
 
         return view
 
@@ -194,9 +198,9 @@ class HomeFragment : Fragment() {
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         private lateinit var post: Post
-        val usernameTextView: TextView = itemView.findViewById(R.id.replyUsername2)
-        val dateTextView: TextView = itemView.findViewById(R.id.replyDate2)
-        val contentTV : TextView = itemView.findViewById(R.id.replyContent2)
+        val usernameTextView: TextView = itemView.findViewById(R.id.replyUsername)
+        val dateTextView: TextView = itemView.findViewById(R.id.replyDate)
+        val contentTV : TextView = itemView.findViewById(R.id.replyContent)
         lateinit var doc :String
 
 
@@ -237,6 +241,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /* commented out by amy
     private inner class PostAdapter(var posts: List<Post>) : RecyclerView.Adapter<PostHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
@@ -260,7 +265,6 @@ class HomeFragment : Fragment() {
 
         }
     }
-
 
     private inner class PostHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
@@ -288,6 +292,6 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).onReplyClicked(post.id.toString())
         }
     }
-
+*/
 
 }
