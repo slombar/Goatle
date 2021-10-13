@@ -2,6 +2,7 @@
   <library name="Gradle: android.test.mock">
     <CLASSES>
       <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-31/optional/android.test.mock.jar!/" />
+      <root url="jar://$USER_HOME$/Library/Android/sdk/platforms/android-31/optional/android.test.mock.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

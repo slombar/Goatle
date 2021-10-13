@@ -24,6 +24,13 @@ private const val TAG = "ReplyFragment"
 private const val ARG_Post_ID = "DocumentID"
 class ReplyFragment() : Fragment() {
 
+    val hex1 = "#074650"
+    val hex2 = "#009292"
+    val hex3 = "#fe6db6"
+    val hex4 = "#feb5da"
+
+    var backgroundColor1 = hex1
+    var backgroundColor2 = hex2
 
     interface Callbacks {
         fun onReplyPostSelected(isReply : Boolean, postID : String)

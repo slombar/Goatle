@@ -36,10 +36,10 @@ private const val KEY_NICKNAME = "key_nickname_home"
 
 class HomeFragment : Fragment() {
 
-    val hex1 = "#d3d3ff"
-    val hex2 = "#d393ff"
-    val hex3 = "#de66dc"
-    val hex4 = "#de6672"
+    val hex1 = "#074650"
+    val hex2 = "#009292"
+    val hex3 = "#fe6db6"
+    val hex4 = "#feb5da"
 
     var backgroundColor1 = hex1
     var backgroundColor2 = hex2
@@ -242,6 +242,7 @@ class HomeFragment : Fragment() {
         if(shook) {
             backgroundColor1 = hex3
             backgroundColor2 = hex4
+
         }else{
             backgroundColor1 = hex1
             backgroundColor2 = hex2
